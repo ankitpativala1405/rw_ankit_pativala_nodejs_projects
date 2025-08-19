@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>All Blogs</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f4f6f8;
+    }
+
+    main {
+      padding: 30px 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    h1.page-title {
+      font-size: 32px;
+      color: #333;
+      margin-bottom: 25px;
+      text-align: center;
+    }
+
+    .blog-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 25px;
+    }
+
+    .blog-card {
+      background:white;
+      border-radius:12px;
+      overflow:hidden;
+      box-shadow:0 6px 20px rgba(0,0,0,0.1);
+      display:flex;
+      flex-direction:column;
+      transition:transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .blog-card:hover {
+      transform: translateY(-8px);
+      box-shadow:0 10px 30px rgba(0,0,0,0.15);
+    }
+
+    .blog-card img {
+      width:100%;
+      height:200px;
+      object-fit:cover;
+    }
+
+    .blog-content {
+      padding:20px;
+      flex:1;
+      display:flex;
+      flex-direction:column;
+    }
+
+    .blog-content h2 {
+      margin:0 0 12px;
+      font-size:20px;
+      color:#222;
+    }
+
+    .blog-content p {
+      flex:1;
+      font-size:15px;
+      line-height:1.6;
+      color:#555;
+      margin-bottom:15px;
+    }
+
+    .blog-content a {
+      align-self:flex-start;
+      text-decoration:none;
+      color:white;
+      background:#007bff;
+      padding:8px 16px;
+      border-radius:6px;
+      font-size:14px;
+      transition:background 0.3s ease;
+    }
+
+    .blog-content a:hover {
+      background:#0056b3;
+    }
+
+    @media (max-width:768px){
+      .blog-container{
+        grid-template-columns:1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <%- include("../partials/header") %>
+
+  <main>
+    <h1 class="page-title">All Blogs</h1>
+
+    <div class="blog-container">
+      <% blogs.forEach(blog => { %>
+        <div class="blog-card">
+          <img src="<%= blog.image %>" alt="Blog Image" />
+          <div class="blog-content">
+            <h2><%= blog.title %></h2>
+            <p><%= blog.body.substring(0, 120) %>...</p>
+            <a href="/blogs/<%= blog._id %>">Read More</a>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+  </main>
+
+  <%- include("../partials/footer") %>
+</body>
+</html>
