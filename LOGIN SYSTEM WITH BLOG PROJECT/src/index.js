@@ -8,30 +8,19 @@ dotenv.config({
 })
 
 const port = process.env.PORT || 3000
-
 const app = express()
-
 app.set('view engine' , 'ejs')
-
 app.use(bodyParser.urlencoded({extended:true}))
-
 app.use(cookieParser())
-
 let users = []
-
 app.get('/' , (req, res) => {
-
   const username = req.cookies.username
-  
   if(username){
     res.redirect('/welcome')
   }else{
     res.redirect('/signin')
   }
-
 })
-
-// Signup
 
 app.get('/signup' , (req , res) => {
   res.render('signup')
@@ -48,8 +37,6 @@ app.post('/signup' , (req , res) => {
   }
 })
 
-// signin
-
 app.get('/signin' , (req , res) => {
   res.render('signin')
 })
@@ -65,8 +52,6 @@ app.post('/signin' , (req , res) => {
   }
 })
 
-// welcome page
-
 app.get('/welcome' , (req , res) => {
   const username = req.cookies.username;
   if(!username){
@@ -76,7 +61,6 @@ app.get('/welcome' , (req , res) => {
   res.render('Welcome' , {username})
 })
 
-// logout
 
 app.get('/logout' , (req , res) => {
   res.clearCookie('username');
