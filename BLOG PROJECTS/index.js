@@ -25,6 +25,14 @@ app.get("/blogs", async (req, res) => {
 app.get("/blogs/form", (req, res) => {
     res.render('blogs/form')
 })
+
+
+app.post('/create-blogs', (req, res) => {
+    const data = req.body
+
+    const submittedData = [data];
+    res.render('blogs/table', { submittedData })
+})
 // Start server
 const PORT = 5001;
 app.listen(PORT, () => {
