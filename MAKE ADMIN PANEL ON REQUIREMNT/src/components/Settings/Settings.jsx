@@ -7,7 +7,7 @@ import {
   ShieldCheckIcon,
   DocumentTextIcon
 } from '@heroicons/react/24/outline';
-import { useAuth } from '../../contexts/AuthContext';
+import { useAuth } from '../../contexts/AuthContext.jsx';
 
 export function Settings() {
   const { user } = useAuth();
@@ -145,7 +145,7 @@ export function Settings() {
                     <label className="relative inline-flex items-center cursor-pointer">
                       <input
                         type="checkbox"
-                        checked={notifications[key as keyof typeof notifications]}
+                        checked={notifications[key]}
                         onChange={(e) => setNotifications(prev => ({ 
                           ...prev, 
                           [key]: e.target.checked 

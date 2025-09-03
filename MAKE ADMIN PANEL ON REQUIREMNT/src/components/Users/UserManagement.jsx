@@ -1,24 +1,23 @@
 import React, { useState } from 'react';
 import { PlusIcon, PencilIcon, TrashIcon } from '@heroicons/react/24/outline';
-import { DataTable } from '../UI/DataTable';
-import { Modal } from '../UI/Modal';
-import { LoadingSpinner } from '../UI/LoadingSpinner';
-import { useUsers } from '../../hooks/useData';
-import { User } from '../../types';
+import { DataTable } from '../UI/DataTable.jsx';
+import { Modal } from '../UI/Modal.jsx';
+import { LoadingSpinner } from '../UI/LoadingSpinner.jsx';
+import { useUsers } from '../../hooks/useData.js';
 import { format } from 'date-fns';
 
 export function UserManagement() {
   const { users, loading, createUser, updateUser, deleteUser } = useUsers();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedUser, setSelectedUser] = useState<User | null>(null);
+  const [selectedUser, setSelectedUser] = useState(null);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    role: 'user' as User['role'],
-    status: 'active' as User['status']
+    role: 'user',
+    status: 'active'
   });
 
-  const handleEdit = (user: User) => {
+  const handleEdit = (user) => {
     setSelectedUser(user);
     setFormData({
       name: user.name,
@@ -40,7 +39,7 @@ export function UserManagement() {
     setIsModalOpen(true);
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     
     if (selectedUser) {
@@ -53,7 +52,7 @@ export function UserManagement() {
     setSelectedUser(null);
   };
 
-  const handleDelete = async (userId: string) => {
+  const handleDelete = async (userId) => {
     if (window.confirm('Are you sure you want to delete this user?')) {
       await deleteUser(userId);
     }
@@ -61,10 +60,10 @@ export function UserManagement() {
 
   const columns = [
     {
-      key: 'name' as keyof User,
+      key: 'name',
       label: 'Name',
       sortable: true,
-      render: (value: string, user: User) => (
+      render: (value, user) => (
         <div className="flex items-center gap-3">
           <img
             src={user.avatar || 'https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=64&h=64&fit=crop&crop=face'}
@@ -76,18 +75,18 @@ export function UserManagement() {
       )
     },
     {
-      key: 'email' as keyof User,
+      key: 'email',
       label: 'Email',
       sortable: true,
-      render: (value: string) => (
+      render: (value) => (
         <span className="text-gray-600">{value}</span>
       )
     },
     {
-      key: 'role' as keyof User,
+      key: 'role',
       label: 'Role',
       sortable: true,
-      render: (value: string) => (
+      render: (value) => (
         <span className={`px-2 py-1 rounded-full text-xs font-medium ${
           value === 'admin' ? 'bg-purple-100 text-purple-800' :
           value === 'manager' ? 'bg-blue-100 text-blue-800' :
@@ -98,10 +97,10 @@ export function UserManagement() {
       )
     },
     {
-      key: 'status' as keyof User,
+      key: 'status',
       label: 'Status',
       sortable: true,
-      render: (value: string) => (
+      render: (value) => (
         <span className={`px-2 py-1 rounded-full text-xs font-medium ${
           value === 'active' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
         }`}>
@@ -110,19 +109,19 @@ export function UserManagement() {
       )
     },
     {
-      key: 'createdAt' as keyof User,
+      key: 'createdAt',
       label: 'Created',
       sortable: true,
-      render: (value: string) => (
+      render: (value) => (
         <span className="text-gray-600 text-sm">
           {format(new Date(value), 'MMM dd, yyyy')}
         </span>
       )
     },
     {
-      key: 'id' as keyof User,
+      key: 'id',
       label: 'Actions',
-      render: (value: string, user: User) => (
+      render: (value, user) => (
         <div className="flex gap-2">
           <button
             onClick={(e) => {
@@ -201,7 +200,7 @@ export function UserManagement() {
             <label className="block text-sm font-medium text-gray-700 mb-2">Role</label>
             <select
               value={formData.role}
-              onChange={(e) => setFormData(prev => ({ ...prev, role: e.target.value as User['role'] }))}
+              onChange={(e) => setFormData(prev => ({ ...prev, role: e.target.value }))}
               className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             >
               <option value="user">User</option>
@@ -214,7 +213,7 @@ export function UserManagement() {
             <label className="block text-sm font-medium text-gray-700 mb-2">Status</label>
             <select
               value={formData.status}
-              onChange={(e) => setFormData(prev => ({ ...prev, status: e.target.value as User['status'] }))}
+              onChange={(e) => setFormData(prev => ({ ...prev, status: e.target.value }))}
               className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             >
               <option value="active">Active</option>

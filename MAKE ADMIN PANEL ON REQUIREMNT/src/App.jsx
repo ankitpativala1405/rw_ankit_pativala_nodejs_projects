@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import { AuthProvider, useAuth } from './contexts/AuthContext';
-import { LoginForm } from './components/Auth/LoginForm';
-import { Sidebar } from './components/Layout/Sidebar';
-import { Header } from './components/Layout/Header';
-import { Dashboard } from './components/Dashboard/Dashboard';
-import { UserManagement } from './components/Users/UserManagement';
-import { ProductManagement } from './components/Products/ProductManagement';
-import { OrderManagement } from './components/Orders/OrderManagement';
-import { Settings } from './components/Settings/Settings';
+import { AuthProvider, useAuth } from './contexts/AuthContext.jsx';
+import { LoginForm } from './components/Auth/LoginForm.jsx';
+import { Sidebar } from './components/Layout/Sidebar.jsx';
+import { Header } from './components/Layout/Header.jsx';
+import { Dashboard } from './components/Dashboard/Dashboard.jsx';
+import { UserManagement } from './components/Users/UserManagement.jsx';
+import { ProductManagement } from './components/Products/ProductManagement.jsx';
+import { OrderManagement } from './components/Orders/OrderManagement.jsx';
+import { Settings } from './components/Settings/Settings.jsx';
 
 function AdminPanel() {
   const { user } = useAuth();

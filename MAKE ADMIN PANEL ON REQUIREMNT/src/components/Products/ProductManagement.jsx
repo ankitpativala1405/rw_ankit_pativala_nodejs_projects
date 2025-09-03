@@ -1,26 +1,25 @@
 import React, { useState } from 'react';
 import { PlusIcon, PencilIcon, TrashIcon } from '@heroicons/react/24/outline';
-import { DataTable } from '../UI/DataTable';
-import { Modal } from '../UI/Modal';
-import { LoadingSpinner } from '../UI/LoadingSpinner';
-import { useProducts } from '../../hooks/useData';
-import { Product } from '../../types';
+import { DataTable } from '../UI/DataTable.jsx';
+import { Modal } from '../UI/Modal.jsx';
+import { LoadingSpinner } from '../UI/LoadingSpinner.jsx';
+import { useProducts } from '../../hooks/useData.js';
 import { format } from 'date-fns';
 
 export function ProductManagement() {
   const { products, loading, createProduct, updateProduct, deleteProduct } = useProducts();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [selectedProduct, setSelectedProduct] = useState(null);
   const [formData, setFormData] = useState({
     name: '',
     description: '',
     price: 0,
     category: '',
     stock: 0,
-    status: 'active' as Product['status']
+    status: 'active'
   });
 
-  const handleEdit = (product: Product) => {
+  const handleEdit = (product) => {
     setSelectedProduct(product);
     setFormData({
       name: product.name,
@@ -46,7 +45,7 @@ export function ProductManagement() {
     setIsModalOpen(true);
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     
     if (selectedProduct) {
@@ -59,7 +58,7 @@ export function ProductManagement() {
     setSelectedProduct(null);
   };
 
-  const handleDelete = async (productId: string) => {
+  const handleDelete = async (productId) => {
     if (window.confirm('Are you sure you want to delete this product?')) {
       await deleteProduct(productId);
     }
@@ -67,10 +66,10 @@ export function ProductManagement() {
 
   const columns = [
     {
-      key: 'name' as keyof Product,
+      key: 'name',
       label: 'Product',
       sortable: true,
-      render: (value: string, product: Product) => (
+      render: (value, product) => (
         <div className="flex items-center gap-3">
           <img
             src={product.image || 'https://images.pexels.com/photos/3394650/pexels-photo-3394650.jpeg?auto=compress&cs=tinysrgb&w=64&h=64&fit=crop'}
@@ -85,36 +84,36 @@ export function ProductManagement() {
       )
     },
     {
-      key: 'category' as keyof Product,
+      key: 'category',
       label: 'Category',
       sortable: true,
-      render: (value: string) => (
+      render: (value) => (
         <span className="px-2 py-1 bg-gray-100 text-gray-800 rounded-full text-sm">{value}</span>
       )
     },
     {
-      key: 'price' as keyof Product,
+      key: 'price',
       label: 'Price',
       sortable: true,
-      render: (value: number) => (
+      render: (value) => (
         <span className="font-medium text-gray-900">${value.toFixed(2)}</span>
       )
     },
     {
-      key: 'stock' as keyof Product,
+      key: 'stock',
       label: 'Stock',
       sortable: true,
-      render: (value: number) => (
+      render: (value) => (
         <span className={`font-medium ${value > 0 ? 'text-green-600' : 'text-red-600'}`}>
           {value}
         </span>
       )
     },
     {
-      key: 'status' as keyof Product,
+      key: 'status',
       label: 'Status',
       sortable: true,
-      render: (value: string) => (
+      render: (value) => (
         <span className={`px-2 py-1 rounded-full text-xs font-medium ${
           value === 'active' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
         }`}>
@@ -123,19 +122,19 @@ export function ProductManagement() {
       )
     },
     {
-      key: 'createdAt' as keyof Product,
+      key: 'createdAt',
       label: 'Created',
       sortable: true,
-      render: (value: string) => (
+      render: (value) => (
         <span className="text-gray-600 text-sm">
           {format(new Date(value), 'MMM dd, yyyy')}
         </span>
       )
     },
     {
-      key: 'id' as keyof Product,
+      key: 'id',
       label: 'Actions',
-      render: (value: string, product: Product) => (
+      render: (value, product) => (
         <div className="flex gap-2">
           <button
             onClick={(e) => {
@@ -252,7 +251,7 @@ export function ProductManagement() {
               <label className="block text-sm font-medium text-gray-700 mb-2">Status</label>
               <select
                 value={formData.status}
-                onChange={(e) => setFormData(prev => ({ ...prev, status: e.target.value as Product['status'] }))}
+                onChange={(e) => setFormData(prev => ({ ...prev, status: e.target.value }))}
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               >
                 <option value="active">Active</option>

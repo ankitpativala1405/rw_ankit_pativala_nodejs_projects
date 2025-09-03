@@ -6,9 +6,9 @@ import {
   CurrencyDollarIcon 
 } from '@heroicons/react/24/outline';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line } from 'recharts';
-import { StatCard } from '../UI/StatCard';
-import { LoadingSpinner } from '../UI/LoadingSpinner';
-import { useDashboardStats } from '../../hooks/useData';
+import { StatCard } from '../UI/StatCard.jsx';
+import { LoadingSpinner } from '../UI/LoadingSpinner.jsx';
+import { useDashboardStats } from '../../hooks/useData.js';
 
 const revenueData = [
   { month: 'Jan', revenue: 4000, orders: 24 },

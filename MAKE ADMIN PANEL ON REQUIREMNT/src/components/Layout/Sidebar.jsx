@@ -9,14 +9,7 @@ import {
   ChevronLeftIcon,
   ChevronRightIcon
 } from '@heroicons/react/24/outline';
-import { useAuth } from '../../contexts/AuthContext';
-
-interface SidebarProps {
-  currentPage: string;
-  onPageChange: (page: string) => void;
-  isCollapsed: boolean;
-  onToggleCollapse: () => void;
-}
+import { useAuth } from '../../contexts/AuthContext.jsx';
 
 const menuItems = [
   { id: 'dashboard', label: 'Dashboard', icon: HomeIcon },
@@ -26,7 +19,7 @@ const menuItems = [
   { id: 'settings', label: 'Settings', icon: CogIcon },
 ];
 
-export function Sidebar({ currentPage, onPageChange, isCollapsed, onToggleCollapse }: SidebarProps) {
+export function Sidebar({ currentPage, onPageChange, isCollapsed, onToggleCollapse }) {
   const { logout, user } = useAuth();
 
   return (

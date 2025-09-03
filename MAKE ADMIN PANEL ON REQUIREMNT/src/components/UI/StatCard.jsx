@@ -1,14 +1,6 @@
 import React from 'react';
 
-interface StatCardProps {
-  title: string;
-  value: string | number;
-  growth?: number;
-  icon: React.ComponentType<{ className?: string }>;
-  color?: 'blue' | 'green' | 'purple' | 'orange';
-}
-
-export function StatCard({ title, value, growth, icon: Icon, color = 'blue' }: StatCardProps) {
+export function StatCard({ title, value, growth, icon: Icon, color = 'blue' }) {
   const colorClasses = {
     blue: 'bg-blue-500',
     green: 'bg-green-500',

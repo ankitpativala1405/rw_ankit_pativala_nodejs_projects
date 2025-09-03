@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
-import { User, Product, Order, DashboardStats } from '../types';
 
-const generateMockUsers = (): User[] => [
+const generateMockUsers = () => [
   {
     id: '1',
     name: 'John Doe',
@@ -32,7 +31,7 @@ const generateMockUsers = (): User[] => [
   }
 ];
 
-const generateMockProducts = (): Product[] => [
+const generateMockProducts = () => [
   {
     id: '1',
     name: 'Premium Headphones',
@@ -68,7 +67,7 @@ const generateMockProducts = (): Product[] => [
   }
 ];
 
-const generateMockOrders = (): Order[] => [
+const generateMockOrders = () => [
   {
     id: '1',
     userId: '2',
@@ -94,7 +93,7 @@ const generateMockOrders = (): Order[] => [
 ];
 
 export function useUsers() {
-  const [users, setUsers] = useState<User[]>([]);
+  const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -108,8 +107,8 @@ export function useUsers() {
     fetchUsers();
   }, []);
 
-  const createUser = async (userData: Omit<User, 'id' | 'createdAt'>) => {
-    const newUser: User = {
+  const createUser = async (userData) => {
+    const newUser = {
       ...userData,
       id: Date.now().toString(),
       createdAt: new Date().toISOString()
@@ -118,13 +117,13 @@ export function useUsers() {
     return newUser;
   };
 
-  const updateUser = async (id: string, updates: Partial<User>) => {
+  const updateUser = async (id, updates) => {
     setUsers(prev => prev.map(user => 
       user.id === id ? { ...user, ...updates } : user
     ));
   };
 
-  const deleteUser = async (id: string) => {
+  const deleteUser = async (id) => {
     setUsers(prev => prev.filter(user => user.id !== id));
   };
 
@@ -132,7 +131,7 @@ export function useUsers() {
 }
 
 export function useProducts() {
-  const [products, setProducts] = useState<Product[]>([]);
+  const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -146,8 +145,8 @@ export function useProducts() {
     fetchProducts();
   }, []);
 
-  const createProduct = async (productData: Omit<Product, 'id' | 'createdAt'>) => {
-    const newProduct: Product = {
+  const createProduct = async (productData) => {
+    const newProduct = {
       ...productData,
       id: Date.now().toString(),
       createdAt: new Date().toISOString()
@@ -156,13 +155,13 @@ export function useProducts() {
     return newProduct;
   };
 
-  const updateProduct = async (id: string, updates: Partial<Product>) => {
+  const updateProduct = async (id, updates) => {
     setProducts(prev => prev.map(product => 
       product.id === id ? { ...product, ...updates } : product
     ));
   };
 
-  const deleteProduct = async (id: string) => {
+  const deleteProduct = async (id) => {
     setProducts(prev => prev.filter(product => product.id !== id));
   };
 
@@ -170,7 +169,7 @@ export function useProducts() {
 }
 
 export function useOrders() {
-  const [orders, setOrders] = useState<Order[]>([]);
+  const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -184,7 +183,7 @@ export function useOrders() {
     fetchOrders();
   }, []);
 
-  const updateOrderStatus = async (id: string, status: Order['status']) => {
+  const updateOrderStatus = async (id, status) => {
     setOrders(prev => prev.map(order => 
       order.id === id ? { ...order, status } : order
     ));
@@ -193,8 +192,8 @@ export function useOrders() {
   return { orders, loading, updateOrderStatus };
 }
 
-export function useDashboardStats(): { stats: DashboardStats; loading: boolean } {
-  const [stats, setStats] = useState<DashboardStats>({
+export function useDashboardStats() {
+  const [stats, setStats] = useState({
     totalUsers: 0,
     totalProducts: 0,
     totalOrders: 0,

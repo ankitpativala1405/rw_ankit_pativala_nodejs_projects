@@ -1,12 +1,8 @@
 import React from 'react';
 import { BellIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline';
-import { useAuth } from '../../contexts/AuthContext';
+import { useAuth } from '../../contexts/AuthContext.jsx';
 
-interface HeaderProps {
-  title: string;
-}
-
-export function Header({ title }: HeaderProps) {
+export function Header({ title }) {
   const { user } = useAuth();
 
   return (

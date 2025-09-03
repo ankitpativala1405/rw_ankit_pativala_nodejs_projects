@@ -1,33 +1,16 @@
 import React, { useState } from 'react';
 import { ChevronUpIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
 
-interface Column<T> {
-  key: keyof T;
-  label: string;
-  sortable?: boolean;
-  render?: (value: any, item: T) => React.ReactNode;
-}
-
-interface DataTableProps<T> {
-  data: T[];
-  columns: Column<T>[];
-  loading?: boolean;
-  onRowClick?: (item: T) => void;
-}
-
-export function DataTable<T extends { id: string }>({ 
+export function DataTable({ 
   data, 
   columns, 
   loading = false,
   onRowClick 
-}: DataTableProps<T>) {
-  const [sortConfig, setSortConfig] = useState<{
-    key: keyof T;
-    direction: 'asc' | 'desc';
-  } | null>(null);
+}) {
+  const [sortConfig, setSortConfig] = useState(null);
 
-  const handleSort = (key: keyof T) => {
-    let direction: 'asc' | 'desc' = 'asc';
+  const handleSort = (key) => {
+    let direction = 'asc';
     
     if (sortConfig && sortConfig.key === key && sortConfig.direction === 'asc') {
       direction = 'desc';
@@ -74,7 +57,7 @@ export function DataTable<T extends { id: string }>({
             <tr>
               {columns.map((column) => (
                 <th
-                  key={column.key as string}
+                  key={column.key}
                   className={`px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider ${
                     column.sortable ? 'cursor-pointer hover:bg-gray-100' : ''
                   }`}
@@ -113,7 +96,7 @@ export function DataTable<T extends { id: string }>({
                 className={`${onRowClick ? 'cursor-pointer hover:bg-gray-50' : ''} transition-colors`}
               >
                 {columns.map((column) => (
-                  <td key={column.key as string} className="px-6 py-4 whitespace-nowrap">
+                  <td key={column.key} className="px-6 py-4 whitespace-nowrap">
                     {column.render 
                       ? column.render(item[column.key], item)
                       : String(item[column.key])

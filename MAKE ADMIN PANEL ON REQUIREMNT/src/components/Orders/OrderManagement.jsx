@@ -1,38 +1,37 @@
 import React from 'react';
-import { DataTable } from '../UI/DataTable';
-import { LoadingSpinner } from '../UI/LoadingSpinner';
-import { useOrders } from '../../hooks/useData';
-import { Order } from '../../types';
+import { DataTable } from '../UI/DataTable.jsx';
+import { LoadingSpinner } from '../UI/LoadingSpinner.jsx';
+import { useOrders } from '../../hooks/useData.js';
 import { format } from 'date-fns';
 
 export function OrderManagement() {
   const { orders, loading, updateOrderStatus } = useOrders();
 
-  const handleStatusChange = (orderId: string, newStatus: Order['status']) => {
+  const handleStatusChange = (orderId, newStatus) => {
     updateOrderStatus(orderId, newStatus);
   };
 
   const columns = [
     {
-      key: 'id' as keyof Order,
+      key: 'id',
       label: 'Order ID',
       sortable: true,
-      render: (value: string) => (
+      render: (value) => (
         <span className="font-mono text-sm text-blue-600">#{value}</span>
       )
     },
     {
-      key: 'userName' as keyof Order,
+      key: 'userName',
       label: 'Customer',
       sortable: true,
-      render: (value: string) => (
+      render: (value) => (
         <span className="font-medium text-gray-900">{value}</span>
       )
     },
     {
-      key: 'products' as keyof Order,
+      key: 'products',
       label: 'Items',
-      render: (products: Order['products']) => (
+      render: (products) => (
         <div>
           {products.map((product, index) => (
             <div key={index} className="text-sm">
@@ -44,21 +43,21 @@ export function OrderManagement() {
       )
     },
     {
-      key: 'total' as keyof Order,
+      key: 'total',
       label: 'Total',
       sortable: true,
-      render: (value: number) => (
+      render: (value) => (
         <span className="font-medium text-gray-900">${value.toFixed(2)}</span>
       )
     },
     {
-      key: 'status' as keyof Order,
+      key: 'status',
       label: 'Status',
       sortable: true,
-      render: (value: string, order: Order) => (
+      render: (value, order) => (
         <select
           value={value}
-          onChange={(e) => handleStatusChange(order.id, e.target.value as Order['status'])}
+          onChange={(e) => handleStatusChange(order.id, e.target.value)}
           className={`px-2 py-1 rounded-full text-xs font-medium border-0 focus:ring-2 focus:ring-blue-500 ${
             value === 'pending' ? 'bg-yellow-100 text-yellow-800' :
             value === 'processing' ? 'bg-blue-100 text-blue-800' :
@@ -76,10 +75,10 @@ export function OrderManagement() {
       )
     },
     {
-      key: 'createdAt' as keyof Order,
+      key: 'createdAt',
       label: 'Date',
       sortable: true,
-      render: (value: string) => (
+      render: (value) => (
         <span className="text-gray-600 text-sm">
           {format(new Date(value), 'MMM dd, yyyy')}
         </span>
